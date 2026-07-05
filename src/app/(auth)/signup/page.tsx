@@ -15,6 +15,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { MessageSquare, CheckCircle, UsersRound } from "lucide-react";
+import { buildAuthRedirectUrl } from "@/lib/auth/urls";
 
 // `useSearchParams` opts the component out of static prerendering
 // unless wrapped in Suspense — same pattern as /login.
@@ -65,7 +66,7 @@ function SignupPageInner() {
     // verifying. Without a token, Supabase uses its default
     // redirect (the app root).
     const emailRedirectTo = inviteToken
-      ? `${window.location.origin}/join/${encodeURIComponent(inviteToken)}`
+      ? buildAuthRedirectUrl(`/join/${encodeURIComponent(inviteToken)}`)
       : undefined;
 
     const { error } = await supabase.auth.signUp({
